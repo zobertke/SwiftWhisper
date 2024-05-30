@@ -39,7 +39,7 @@ class TranscriptionCancellationTests: ResourceDependentTestCase, ModelFileTestCa
             }
         )
 
-        wait(for: [cancelExpectation, failureExpectation], timeout: timeout)
+        await fulfillment(of: [cancelExpectation, failureExpectation], timeout: timeout)
     }
 
     @available(iOS 13, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
@@ -77,7 +77,7 @@ class TranscriptionCancellationTests: ResourceDependentTestCase, ModelFileTestCa
             }
         )
 
-        wait(for: [cancelExpectation, failureExpectation, restartExpectation], timeout: timeout)
+        await fulfillment(of: [cancelExpectation, failureExpectation, restartExpectation], timeout: timeout)
     }
 
     @available(iOS 13, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
@@ -110,7 +110,7 @@ class TranscriptionCancellationTests: ResourceDependentTestCase, ModelFileTestCa
             }
         )
 
-        wait(for: [cancelExpectation, failureExpectation], timeout: timeout)
+        await fulfillment(of: [cancelExpectation, failureExpectation], timeout: timeout)
     }
 
     @available(iOS 13, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
@@ -155,7 +155,7 @@ class TranscriptionCancellationTests: ResourceDependentTestCase, ModelFileTestCa
         }
 
         // Should be fine because function is async, but just to be safe
-        wait(for: [failureExpectation, cancelledExpectation], timeout: timeout)
+        await fulfillment(of: [failureExpectation, cancelledExpectation], timeout: timeout)
     }
 
 
@@ -197,6 +197,6 @@ class TranscriptionCancellationTests: ResourceDependentTestCase, ModelFileTestCa
         }
 
         // Should be fine because function is async, but just to be safe
-        wait(for: [failureExpectation, cancelledExpectation, cancellationFailureExpectation], timeout: timeout)
+        await fulfillment(of: [failureExpectation, cancelledExpectation, cancellationFailureExpectation], timeout: timeout)
     }
 }

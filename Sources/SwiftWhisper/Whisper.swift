@@ -13,14 +13,15 @@ public class Whisper {
     internal var cancelCallback: (() -> Void)?
 
     public init(fromFileURL fileURL: URL, withParams params: WhisperParams = .default) {
-        self.whisperContext = fileURL.relativePath.withCString { whisper_init_from_file($0) }
+        let contextParams = whisper_context_default_params()
+        self.whisperContext = fileURL.relativePath.withCString { whisper_init_from_file_with_params($0, contextParams) }
         self.params = params
     }
 
     public init(fromData data: Data, withParams params: WhisperParams = .default) {
         var copy = data // Need to copy memory so we can gaurentee exclusive ownership over pointer
-
-        self.whisperContext = copy.withUnsafeMutableBytes { whisper_init_from_buffer($0.baseAddress!, data.count) }
+        let contextParams = whisper_context_default_params()
+        self.whisperContext = copy.withUnsafeMutableBytes { whisper_init_from_buffer_with_params($0.baseAddress!, data.count, contextParams) }
         self.params = params
     }
 

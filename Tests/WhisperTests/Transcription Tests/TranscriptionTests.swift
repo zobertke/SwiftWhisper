@@ -31,7 +31,7 @@ class TranscriptionTests: ResourceDependentTestCase, ModelFileTestCase, AudioFil
             successExpectation.fulfill()
         }
 
-        wait(for: [successExpectation], timeout: timeout)
+        await fulfillment(of: [successExpectation], timeout: timeout)
     }
 
     @available(iOS 13, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
@@ -62,7 +62,7 @@ class TranscriptionTests: ResourceDependentTestCase, ModelFileTestCase, AudioFil
             failureExpectation.fulfill()
         }
 
-        wait(for: [successExpectation, failureExpectation], timeout: timeout)
+        await fulfillment(of: [successExpectation, failureExpectation], timeout: timeout)
     }
 
     @available(iOS 13, macOS 10.15, watchOS 6.0, tvOS 13.0, *)
@@ -81,7 +81,7 @@ class TranscriptionTests: ResourceDependentTestCase, ModelFileTestCase, AudioFil
             failureExpectation.fulfill()
         }
 
-        wait(for: [failureExpectation], timeout: 5)
+        await fulfillment(of: [failureExpectation], timeout: 5)
     }
 
     // Used in testTranscribeDelegate()
@@ -106,7 +106,7 @@ extension TranscriptionTests: WhisperDelegate {
 
         XCTAssert(segments.count > 0)
 
-        wait(for: [
+        await fulfillment(of: [
             try XCTUnwrap(delegateNewSegmentExpectation),
             try XCTUnwrap(delegateProgessExpectation),
             try XCTUnwrap(delegateCompletionExpectation)
